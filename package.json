@@ -1,8 +1,8 @@
 {
-  "name": "movies-service",
+  "name": "movieservice",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://AndreyLytvynov.github.io/movies-service/",
+  "homepage": "https://VolodymyrShostak.github.io/movieservice/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
