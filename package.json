@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://VolodymyrShostak.github.io/movieservice/",
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.5.3",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
