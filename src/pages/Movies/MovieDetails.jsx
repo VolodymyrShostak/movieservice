@@ -1,7 +1,6 @@
-import { useGetMovieQuery } from "../../redux/slice/movieSlice";
+import { useGetMovieQuery } from "../../redux/movie/movieApiSlice";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
-
 
 const MovieDetails = () => {
   const { id } = useParams();

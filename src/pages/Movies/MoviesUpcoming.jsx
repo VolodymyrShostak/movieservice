@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import MovieList from "../../components/MovieList";
-import { useGetUpcomingMoviesQuery } from "../../redux/slice/movieSlice";
+import { useGetUpcomingMoviesQuery } from "../../redux/movie/movieApiSlice";
 
 const MoviesUpComing = () => {
   const { data } = useGetUpcomingMoviesQuery();

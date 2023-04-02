@@ -1,9 +1,24 @@
 import { Box, Flex, Button, Stack, Tabs, TabList, Tab } from "@chakra-ui/react";
 
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import SearchForm from "./SearchForm";
+import { useDispatch } from "react-redux";
+import { RxExit } from "react-icons/rx";
+import { useLogOutUserMutation } from "../redux/user/userApiSlice";
+import { logOut } from "../redux/user/userSlice";
 
 export default function WithSubnavigation() {
+  const dispatch = useDispatch();
+  const [logOutUser] = useLogOutUserMutation();
+  // const token = localStorage.getItem("token");
+
+  const onLogOut = async () => {
+     await logOutUser();
+    dispatch(logOut());
+  };
+  
+
+
   return (
     <Box>
       <Flex
@@ -38,18 +53,9 @@ export default function WithSubnavigation() {
               </Tab>
             </TabList>
           </Tabs>
-          {/* <NavLink to={"/"}>Popular</NavLink>
-
-          <NavLink to={"/topratedmovies"}>Top rated</NavLink>
-
-          <NavLink to={"/upcomingmovies"}>Upcoming</NavLink>
-
-          <NavLink to={"/nowplayingmovies"}>Now playing</NavLink>
-
-          <NavLink to={"/latestmovies"}>Latest</NavLink> */}
         </Flex>
-        
-<SearchForm />
+
+        <SearchForm />
         <Stack
           flex={{ base: 1, md: 0 }}
           justify={"flex-end"}
@@ -64,6 +70,7 @@ export default function WithSubnavigation() {
             href={"#"}
           >
             Sign In
+            {/* <Link to={"/signin"}></Link> */}
           </Button>
           <Button
             as={"a"}
@@ -76,8 +83,26 @@ export default function WithSubnavigation() {
             _hover={{
               bg: "pink.300",
             }}
+           
           >
             Sign Up
+            {/* <Link to={"/signup"}></Link> */}
+          </Button>
+
+          <Button
+            as={"a"}
+            display={{ base: "none", md: "inline-flex" }}
+            fontSize={"sm"}
+            fontWeight={600}
+            color={"white"}
+            bg={"pink.400"}
+            href={"#"}
+            _hover={{
+              bg: "pink.300",
+            }}
+            onClick={onLogOut}
+          >
+            EV
           </Button>
         </Stack>
       </Flex>
