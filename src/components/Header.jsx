@@ -1,23 +1,34 @@
-import { Box, Flex, Button, Stack, Tabs, TabList, Tab } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+ 
+  Stack,
+  Tabs,
+  TabList,
+  Tab,
+  IconButton,
+} from "@chakra-ui/react";
 
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import SearchForm from "./SearchForm";
 import { useDispatch } from "react-redux";
 import { RxExit } from "react-icons/rx";
 import { useLogOutUserMutation } from "../redux/user/userApiSlice";
 import { logOut } from "../redux/user/userSlice";
+import { useSelector } from "react-redux";
 
 export default function WithSubnavigation() {
   const dispatch = useDispatch();
   const [logOutUser] = useLogOutUserMutation();
-  // const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   const onLogOut = async () => {
-     await logOutUser();
+    await logOutUser();
     dispatch(logOut());
+    navigate("/");
   };
-  
 
+  const isLoggedIn = useSelector((state) => state.users.isLoggedIn);
 
   return (
     <Box>
@@ -42,69 +53,40 @@ export default function WithSubnavigation() {
               <Tab>
                 <NavLink to={"/topratedmovies"}>Top rated</NavLink>
               </Tab>
-              <Tab>
-                <NavLink to={"/upcomingmovies"}>Upcoming</NavLink>
-              </Tab>
+              {isLoggedIn && (
+                <Tab>
+                  <NavLink to={"/upcomingmovies"}>Upcoming</NavLink>
+                </Tab>
+              )}
               <Tab>
                 <NavLink to={"/nowplayingmovies"}>Now playing</NavLink>
-              </Tab>
-              <Tab>
-                <NavLink to={"/latestmovies"}>Latest</NavLink>
               </Tab>
             </TabList>
           </Tabs>
         </Flex>
 
         <SearchForm />
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          justify={"flex-end"}
-          direction={"row"}
-          spacing={6}
-        >
-          <Button
-            as={"a"}
-            fontSize={"sm"}
-            fontWeight={400}
-            variant={"link"}
-            href={"#"}
-          >
-            Sign In
-            {/* <Link to={"/signin"}></Link> */}
-          </Button>
-          <Button
-            as={"a"}
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"pink.400"}
-            href={"#"}
-            _hover={{
-              bg: "pink.300",
-            }}
-           
-          >
-            Sign Up
-            {/* <Link to={"/signup"}></Link> */}
-          </Button>
-
-          <Button
-            as={"a"}
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"pink.400"}
-            href={"#"}
-            _hover={{
-              bg: "pink.300",
-            }}
-            onClick={onLogOut}
-          >
-            EV
-          </Button>
+        <Stack direction={"row"}>
+          <Box style={{ color: "white", width: 70 }}>
+            <Link as={NavLink} variant={"headerLink"} to={"/signin"}>
+              Sign In
+            </Link>
+          </Box>
+          <Box style={{ color: "white", width: 80 }}>
+            <Link as={NavLink} variant={"headerLink"} to={"/signup"}>
+              Sign Up
+            </Link>
+          </Box>
         </Stack>
+        {isLoggedIn && (
+          <IconButton
+            onClick={onLogOut}
+            colorScheme="white"
+            aria-label="Call Sage"
+            fontSize="20px"
+            icon={<RxExit />}
+          />
+        )}
       </Flex>
     </Box>
   );

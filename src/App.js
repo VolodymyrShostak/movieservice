@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Moviespopular from "./pages/Home/Moviespopular";
 
+
 import { Layout } from "./components/Layout";
 import MoviesTopRates from "./pages/Movies/MoviesTopRates";
 import MoviesUpComing from "./pages/Movies/MoviesUpcoming";
@@ -10,12 +11,13 @@ import MovieDetails from "./pages/Movies/MovieDetails";
 import MoviesSearch from "./pages/Movies/MoviesSearch";
 import SignIn from "./pages/Auth/SignIn";
 import SignUp from "./pages/Auth/SignUp";
+import PrivateRoute from "./components/Routs/PrivateRoute";
 
 
 import Profile from "./pages/Profile/Profile";
 
 function App() {
-  // const dispatch = useDispatch();
+  
   
   return (
     <div>
@@ -24,7 +26,9 @@ function App() {
           <Route index element={<Moviespopular />} />
           <Route path="/topratedmovies" element={<MoviesTopRates />} />
           <Route path="/nowplayingmovies" element={<MoviesNowPlaying />} />
-          <Route path="/upcomingmovies" element={<MoviesUpComing />} />
+         <Route element={<PrivateRoute />}>
+            <Route path="/upcomingmovies" element={<MoviesUpComing />} />
+          </Route>
           <Route path="/latestmovies" element={<MoviesLatest />} />
           <Route path="/:id" element={<MovieDetails />} />
           <Route path="/moviesearch" element={<MoviesSearch />} />

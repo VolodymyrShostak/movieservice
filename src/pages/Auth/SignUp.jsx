@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useRegisterUserMutation } from "../../redux/user/userApiSlice";
 import { register } from "../../redux/user/userSlice";
 import { useDispatch } from "react-redux";
-import { Formik, Form } from "formik";
-import { Flex, Grid, Heading, Stack, Text } from "@chakra-ui/layout";
-import { InputControl, SubmitButton } from "formik-chakra-ui";
+
+import { Grid, Heading, Stack } from "@chakra-ui/layout";
+
+import { Button, Input } from "@chakra-ui/react";
+import { FormControl } from "@chakra-ui/form-control";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -17,8 +19,6 @@ const SignUp = () => {
     setPassword("");
   };
   const onSubmit = async (e) => {
-    e.preventDefault();
-
     const user = await registerUser({ email, password });
 
     dispatch(register(user));
@@ -26,52 +26,52 @@ const SignUp = () => {
   };
 
   return (
-    <Formik>
-      <Form>
-        <Grid h="100vh" placeItems="center">
-          <Stack p="10" boxShadow="xl" borderRadius="md">
-            <Heading
-              color="teal"
-              textAlign="center"
-              fontSize="lg"
-              fontWeight="bold"
-              mb={5}
-            >
-              Registration
-            </Heading>
-            <InputControl
-              name="email"
-              label="Email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              inputProps={{
-                type: "email",
-                placeholder: "Enter Email...",
-              }}
-            />
-            <InputControl
-              name="password"
-              label="Password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              inputProps={{
-                type: "email",
-                placeholder: "Enter Email...",
-              }}
-              mb={3}
-            />
+    <FormControl>
+      <Grid h="80vh">
+        <Stack
+          p="10"
+          boxShadow="xl"
+          borderRadius="md"
+          w={500}
+          h={330}
+          m={"auto"}
+        >
+          <Heading
+            color="teal"
+            textAlign="center"
+            fontSize="lg"
+            fontWeight="bold"
+            mb={5}
+          >
+            Registration
+          </Heading>
+          <Input
+            name="email"
+            label="Email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              console.log(email);
+            }}
+            placeholder="Enter Email..."
+          />
+          <Input
+            name="password"
+            label="Password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            placeholder="Enter Password..."
+            mb={3}
+          />
 
-            <SubmitButton type="submit" onClick={onSubmit}>
-              SUBMIT
-            </SubmitButton>
-          </Stack>
-        </Grid>
-      </Form>
-    </Formik>
+          <Button type="submit" onClick={onSubmit} colorScheme="blue">
+            SUBMIT
+          </Button>
+        </Stack>
+      </Grid>
+    </FormControl>
   );
 };
 
